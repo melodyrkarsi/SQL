@@ -1,0 +1,30 @@
+-- Created a new database for a small boutique shop called "Nice Things".
+
+CREATE TABLE nicethings_store (id INTEGER PRIMARY KEY, name TEXT, price INTEGER, cost INTEGER, inventory INTEGER);
+
+INSERT INTO nicethings_store VALUES
+(1, "latte", 6, 3, 50),
+(2, "matcha", 6, 4, 25),
+(3, "green juice", 9, 6, 15),
+(4, "croissant", 6, 3, 25),
+(5, "cookie", 5, 2, 25),
+(6, "tulips", 12, 9, 10),
+(7, "roses", 13, 9, 15),
+(8, "peonies", 18, 13, 10),
+(9, "daisies", 12, 8, 10),
+(10, "poppies", 13, 10, 10),
+(11, "birthday card", 6, 3, 25),
+(12, "puppy thank you card", 6, 3, 25),
+(13, "flower thank you card", 6, 3, 25),
+(14, "thank you candle", 16, 8, 10),
+(15, "basket", 22, 16, 15);
+
+-- Displayed the items in the store, listed by price.
+
+SELECT * FROM nicethings_store ORDER BY price;
+
+-- Calculated the total number of items in the store, the average price of items in the store, and the average cost of the items in the store.
+
+SELECT sum(inventory) FROM nicethings_store;
+SELECT avg(price) FROM nicethings_store;
+SELECT avg(cost) FROM nicethings_store;
