@@ -1,0 +1,45 @@
+-- In this project, I query a database with multiple tables for analysis. 
+
+-- I start out by familiarizing myself with some of the tables that I'll be pulling from. 
+SELECT * from BIT_DB.customers
+LIMIT 20;
+
+SELECT * from BIT_DB.JanSales
+LIMIT 20;
+
+-- I'm pulling the number of total sales from January and iPhone sales from January. 
+SELECT COUNT(*) FROM BIT_DB.JanSales;
+
+SELECT COUNT(*) FROM BIT_DB.JanSales
+WHERE Product = "iPhone";
+
+-- I'm double checking my work to ensure that I'm only seeing iPhone orders from January.
+SELECT * FROM BIT_DB.JanSales
+WHERE Product = "iPhone";
+
+-- I'm reviewing the product list from January sales ot identify which product was the cheapest sold in January and double checking my work.
+SELECT Product, price FROM BIT_DB.JanSales
+ORDER BY price;
+
+SELECT Product, MIN(price) FROM BIT_DB.JanSales;
+
+-- I'm pulling a summary of products sold in January, which an overview of how many products were sold from each category and how much revenue the sales produced.
+SELECT Product, SUM(price), COUNT(Product) FROM BIT_DB.JanSales
+GROUP BY Product ORDER BY SUM(price) DESC;
+
+-- Reviewing the columns for February sales.
+SELECT * FROM BIT_DB.FebSales;
+
+-- Pulling a list of orders from February's sales. 
+SELECT DISTINCT COUNT(order_id) FROM BIT_DB.customers
+FULL OUTER JOIN BIT_DB.FebSales
+ON customers.order_id = FebSales.orderID;
+
+-- Then I'm finding the customer accounts who made a purchase in February. 
+SELECT DISTINCT acctnum FROM BIT_DB.customers
+FULL OUTER JOIN BIT_DB.FebSales
+ON customers.order_id = FebSales.orderID;
+
+-- Identifying the total revenue of a purchase from a specific location.
+SELECT Product, COUNT(*), location, price FROM BIT_DB.FebSales
+WHERE location = "548 Lincoln St, Seattle, WA 98101";
