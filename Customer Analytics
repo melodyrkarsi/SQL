@@ -43,3 +43,13 @@ ON customers.order_id = FebSales.orderID;
 -- Identifying the total revenue of a purchase from a specific location.
 SELECT Product, COUNT(*), location, price FROM BIT_DB.FebSales
 WHERE location = "548 Lincoln St, Seattle, WA 98101";
+
+-- Pulling a list of the orders that occured from 2/13/19 to 2/18/19.
+SELECT distinct orderID FROM BIT_DB.FebSales
+WHERE orderdate between '02/13/19%' AND '02/18/29%'
+ORDER BY orderdate;
+
+-- Reviewing the products and quantities that were sold in Los Angeles in February.
+SELECT Product, quantity FROM BIT_DB.FebSales
+WHERE location like '%Angeles%'
+GROUP BY Product;
