@@ -27,6 +27,10 @@ SELECT Product, MIN(price) FROM BIT_DB.JanSales;
 SELECT Product, SUM(price), COUNT(Product) FROM BIT_DB.JanSales
 GROUP BY Product ORDER BY SUM(price) DESC;
 
+-- Determining the product that produced the highest revenues in January.
+SELECT Product, SUM(Quantity*price) AS Product_Revenue FROM BIT_DB.JanSales
+GROUP BY Product ORDER BY Product_Revenue DESC;
+
 -- Reviewing the columns for February sales.
 SELECT * FROM BIT_DB.FebSales;
 
