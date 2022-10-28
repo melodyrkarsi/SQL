@@ -120,11 +120,24 @@ INSERT INTO sales(transaction_date,product,price,payment_type,name,city,state,co
 INSERT INTO sales(transaction_date,product,price,payment_type,name,city,state,country,account_created,last_login,latitude,longitude) VALUES ('1/14/09 11:19','Chair',1200,'Visa','Jennifer','Jumeira','Dubayy','United Arab Emirates','1/14/09 10:44','1/14/09 21:26',25.2097222,55.2477778);
 INSERT INTO sales(transaction_date,product,price,payment_type,name,city,state,country,account_created,last_login,latitude,longitude) VALUES ('1/13/09 19:39','Chair',1200,'Visa','Jolene','Englewood','CO','United states','1/6/09 22:00','1/14/09 22:02',39.64778,-104.98722);
 
+-- I start out with a quick preview of the created table.
 SELECT * FROM sales LIMIT 5;
+
+-- Pulling the number of transactions from the table.
 SELECT COUNT(*) AS total_purchases FROM sales;
+
+-- Viewing how many of each product was sold. 
 SELECT product, COUNT(product) AS product_purchase_count FROM sales GROUP BY product;
+
+-- Viewing the highest, lowest, and average sales for a product. 
 SELECT product, min(price), max(price), avg(price) FROM sales GROUP BY product;
+
+-- Viewing sales by country and determining which countries have the greatest sales and sales over $5,000. 
 SELECT country, COUNT(*) AS items_purchased, sum(price) FROM sales GROUP BY country ORDER BY sum(price) DESC;
 SELECT country, COUNT(*) AS items_purchased, sum(price) FROM sales GROUP BY country HAVING sum(price) >5000;
+
+-- Viewing sales in the US and sales of chairs in one list.
 SELECT COUNT(*) FROM sales WHERE country = "United states" OR product = "Chair";
+
+-- Viewing sales of chairs in the US.
 SELECT COUNT(*) AS chairs_sold_in_us FROM sales WHERE country = "United states" and product = "Chair";
