@@ -39,3 +39,18 @@ WHERE InvoiceDate LIKE '%2009%';
 SELECT tracks.Name, invoices.InvoiceId FROM chinook.invoice_items
 JOIN chinook.invoices ON invoice_items.InvoiceId = invoices.InvoiceId
 JOIN chinook.tracks ON invoice_items.TrackId = tracks.TrackId;
+
+SELECT tracks.Name AS Track, artists.Name AS Artist, invoice_items.InvoiceId AS Invoice_Id FROM chinook.tracks
+JOIN chinook.invoice_items ON tracks.TrackId = invoice_items.TrackId
+JOIN chinook.albums ON tracks.AlbumId = albums.AlbumId
+JOIN chinook.artists ON albums.ArtistId = artists.ArtistId;
+
+SELECT tracks.Name AS Track, albums.Title AS Album, media_types.Name AS File_Type, genres.Name AS Genre FROM chinook.tracks
+JOIN chinook.albums ON tracks.AlbumId = albums.AlbumId
+JOIN chinook.media_types ON tracks.MediaTypeId = media_types.MediaTypeId
+JOIN chinook.genres ON tracks.GenreId = genres.GenreId;
+
+SELECT employees.FirstName, employees.LastName, sum(invoices.Total) AS Total_Sales FROM chinook.customers
+JOIN chinook.employees ON customers.SupportRepId = employees.EmployeeId
+JOIN chinook.invoices ON customers.CustomerId = invoices.CustomerId
+GROUP BY employees.LastName
