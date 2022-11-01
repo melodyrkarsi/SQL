@@ -1,0 +1,41 @@
+SELECT * FROM chinook.customers;
+
+SELECT FirstName, LastName, CustomerId, Country FROM chinook.customers
+WHERE Country != "USA";
+
+SELECT FirstName, LastName, CustomerId, Country FROM chinook.customers
+WHERE Country = "Brazil";
+
+SELECT FirstName, LastName, InvoiceId, InvoiceDate, Country FROM chinook.customers
+FULL OUTER JOIN chinook.invoices ON customers.CustomerId = invoices.CustomerId;
+
+SELECT * FROM chinook.employees;
+
+SELECT FirstName, LastName, Title FROM chinook.employees
+WHERE Title LIKE "%Sales%";
+
+SELECT DISTINCT BillingCountry FROM chinook.invoices;
+
+SELECT SupportRepId FROM chinook.customers;
+SELECT EmployeeId FROM chinook.employees;
+
+SELECT employees.FirstName, employees.LastName, invoices.InvoiceId
+FROM chinook.customers
+JOIN chinook.employees ON customers.SupportRepId = employees.EmployeeId
+JOIN chinook.invoices ON customers.CustomerId = invoices.CustomerId;
+
+SELECT customers.FirstName, customers.LastName, invoices.InvoiceId, 
+invoices.Total, customers.Country, employees.FirstName, employees.LastName
+FROM chinook.customers
+JOIN chinook.employees ON customers.SupportRepId = employees.EmployeeId
+JOIN chinook.invoices ON customers.CustomerId = invoices.CustomerId;
+
+SELECT count(*) FROM chinook.invoices
+WHERE InvoiceDate LIKE '%2009%';
+
+SELECT sum(Total) FROM chinook.invoices
+WHERE InvoiceDate LIKE '%2009%';
+
+SELECT tracks.Name, invoices.InvoiceId FROM chinook.invoice_items
+JOIN chinook.invoices ON invoice_items.InvoiceId = invoices.InvoiceId
+JOIN chinook.tracks ON invoice_items.TrackId = tracks.TrackId;
