@@ -17,13 +17,13 @@ WHERE Product = "iPhone";
 SELECT * FROM BIT_DB.JanSales
 WHERE Product = "iPhone";
 
--- I'm reviewing the product list from January sales ot identify which product was the cheapest sold in January and double checking my work.
+-- I'm reviewing the product list from January sales to identify which product was the cheapest sold in January and double checking my work.
 SELECT Product, price FROM BIT_DB.JanSales
 ORDER BY price;
 
 SELECT Product, MIN(price) FROM BIT_DB.JanSales;
 
--- I'm pulling a summary of products sold in January, which an overview of how many products were sold from each category and how much revenue the sales produced.
+-- I'm pulling a summary of products sold in January, which is an overview of how many products were sold from each category and how much revenue the sales produced.
 SELECT Product, SUM(price), COUNT(Product) FROM BIT_DB.JanSales
 GROUP BY Product ORDER BY SUM(price) DESC;
 
