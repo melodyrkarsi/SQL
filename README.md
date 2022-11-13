@@ -1,2 +1,2 @@
 # Melody Karsi's SQL Portfolio
-## Hi there! Welcome to my SQL Portfolio, where I've posted a few SQL codes I've written. Thank you for taking a look and feel free to reach out to me directly at: melody.karsi@gmail.com
+### This repository contains some examples of SQL queries that I've written. The queries include the following commands: Min, Max, Average, Sum, Count Grouping, Ordering, and JOINs. 
