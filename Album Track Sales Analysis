@@ -1,55 +1,72 @@
+-- Pulling all of the records and details from the customers table. 
 SELECT * FROM chinook.customers;
 
+-- Pulling details from the customers that are located in the US. 
 SELECT FirstName, LastName, CustomerId, Country FROM chinook.customers
 WHERE Country != "USA";
 
+-- Details from customers located in Brazil. 
 SELECT FirstName, LastName, CustomerId, Country FROM chinook.customers
 WHERE Country = "Brazil";
 
+
+-- Joining the customers and invoices table by the Customer ID to pull invoices associated with customer names.
 SELECT FirstName, LastName, InvoiceId, InvoiceDate, Country FROM chinook.customers
 FULL OUTER JOIN chinook.invoices ON customers.CustomerId = invoices.CustomerId;
 
+-- Checking out the data from the employees table.
 SELECT * FROM chinook.employees;
 
+-- Pulling the names of employees who work in sales/have sales in their job title. 
 SELECT FirstName, LastName, Title FROM chinook.employees
 WHERE Title LIKE "%Sales%";
 
+-- Viewing the list of billing countries from orders. 
 SELECT DISTINCT BillingCountry FROM chinook.invoices;
 
+-- Pulling employee ID's from the customers and employees tables to cross reference. 
 SELECT SupportRepId FROM chinook.customers;
 SELECT EmployeeId FROM chinook.employees;
 
+-- Joining the customers, employees, and invoice tables using customer and employee ID's to connect sales employees to their orders. 
 SELECT employees.FirstName, employees.LastName, invoices.InvoiceId
 FROM chinook.customers
 JOIN chinook.employees ON customers.SupportRepId = employees.EmployeeId
 JOIN chinook.invoices ON customers.CustomerId = invoices.CustomerId;
 
+-- Joining customers, employees, and invoice tables using customer and employee ID's to pull customer order totals and additional details around the order. 
 SELECT customers.FirstName, customers.LastName, invoices.InvoiceId, 
 invoices.Total, customers.Country, employees.FirstName, employees.LastName
 FROM chinook.customers
 JOIN chinook.employees ON customers.SupportRepId = employees.EmployeeId
 JOIN chinook.invoices ON customers.CustomerId = invoices.CustomerId;
 
+-- Pulling a count of orders from 2009. 
 SELECT count(*) FROM chinook.invoices
 WHERE InvoiceDate LIKE '%2009%';
 
+-- Pulling total sales from orders in 2009. 
 SELECT sum(Total) FROM chinook.invoices
 WHERE InvoiceDate LIKE '%2009%';
 
+-- Pulling track titles and their correlative invoices by joining the invoices, tracks, and invoice item tables.
 SELECT tracks.Name, invoices.InvoiceId FROM chinook.invoice_items
 JOIN chinook.invoices ON invoice_items.InvoiceId = invoices.InvoiceId
 JOIN chinook.tracks ON invoice_items.TrackId = tracks.TrackId;
 
+-- Pulling track titles and artists from their respective invoices by joining invoice items, albums, and artists tables.
 SELECT tracks.Name AS Track, artists.Name AS Artist, invoice_items.InvoiceId AS Invoice_Id FROM chinook.tracks
 JOIN chinook.invoice_items ON tracks.TrackId = invoice_items.TrackId
 JOIN chinook.albums ON tracks.AlbumId = albums.AlbumId
 JOIN chinook.artists ON albums.ArtistId = artists.ArtistId;
 
+-- Pulling track titles and additional track details by jonining album, media types, and genre tables. 
 SELECT tracks.Name AS Track, albums.Title AS Album, media_types.Name AS File_Type, genres.Name AS Genre FROM chinook.tracks
 JOIN chinook.albums ON tracks.AlbumId = albums.AlbumId
 JOIN chinook.media_types ON tracks.MediaTypeId = media_types.MediaTypeId
 JOIN chinook.genres ON tracks.GenreId = genres.GenreId;
 
+-- Pulling total sales from each sales employee by joining customers, employees, and invoices tables. 
 SELECT employees.FirstName, employees.LastName, sum(invoices.Total) AS Total_Sales FROM chinook.customers
 JOIN chinook.employees ON customers.SupportRepId = employees.EmployeeId
 JOIN chinook.invoices ON customers.CustomerId = invoices.CustomerId
